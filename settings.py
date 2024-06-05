@@ -1,3 +1,5 @@
+# Limited to 3 buildings, each building is limited to 14 floors and 4 elevators 
+
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 830
 BACKGROUND_PIC = 'ElevatorChallenge - Python/background.png'
