@@ -13,28 +13,31 @@ class City:
 
         self.create_buildings()
     
-
+    # Create buildings in the city
     def create_buildings(self):
         for number in range(NUM_OF_BUILDINGS):
             self.list_of_buildings.append(Building(number, self.start_building))
             self.start_building += (FLOOR_MARGIN + NUM_OF_ELEVATORS[number] * (ELEVATOR_WIDTH + PIXELS_BETWEEN_ELEVATOR) + FLOOR_WIDTH)
 
-    
+    # Update all the objects in the city
     def update_all(self):
         for building in self.list_of_buildings:
             building.update_all()
     
 
+    # Draw all the objects in the city
     def draw_all(self, screen):
         for building in self.list_of_buildings:
             building.draw_all(screen)
 
     
+    # Idenftify new calls from floors 
     def check_for_new_calls(self, position):
         for building in self.list_of_buildings:
             building.check_for_new_calls(position)
 
     
+    # Functions for scrolling 
     def scroll_down_all(self):
         for building in self.list_of_buildings:
             building.scroll_down_all()

@@ -3,6 +3,7 @@ from settings import *
 from building import Building
 from city import City
 
+# init the city 
 city = City()
 
 pygame.init()
@@ -14,13 +15,14 @@ clock = pygame.time.Clock()
 background = pygame.image.load(BACKGROUND_PIC)
 background = pygame.transform.scale(background, ((SCREEN_WIDTH, SCREEN_HEIGHT)))
 
-# run while loop
+# run the game loop
 run = True
 while run:
     clock.tick(60)
     screen.fill('white')
     #screen.blit(background, (0,0))
 
+    # The event handler
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

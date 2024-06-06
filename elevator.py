@@ -33,17 +33,18 @@ class Elevator:
 
 
     
-    # take care of what happens when elv reaches destination (called by update func)
+    # Take care of what happens when elv reaches destination (called by update func)
     def arrived_destination(self):
-        #should take care of the following: ding sound, 2 second rest, start going toward next floor in queue, switch button color back to white
-        # take care of sound
+        # Take care of sound
         self.sound.play()
         
+        # Start rest mode
         self.moving = False
         self.resting = True
         self.rest_start_time = time.time()
 
 
+    # Called when the rest time is over
     def rest_over(self):
         if len(self.queue) == 0:
             self.busy = False
@@ -55,25 +56,24 @@ class Elevator:
         self.trip_time = (self.destination_floor - self.source_floor) * SECONDS_BETWEEN_FLOORS
         if self.trip_time < 0:
             self.trip_time *= -1
-            self.direction = True
+            self.direction = True # Going down 
         else:
-            self.direction = False
+            self.direction = False # Going up
         self.moving = True
         self.departure_time = time.time()
         self.start_trip_y_pixel = self.current_y_pixel
         self.resting = False
 
     
-    # update the position of the elevator, and UPDATE TIME TO AVAILABLE
+    # Update the position of the elevator, and update the time to available field 
     def update(self):
         
         current_time = time.time()
-        # update time to available
+        # Update time to available
         self.time_to_available.update_timer()
     
-        if not self.moving: # elevator not moving
-            if self.resting: # if elevartor is resting - check if resting time is up
-                if current_time - self.rest_start_time >= 2:
+        if not self.moving: # elevator is not moving
+             if self.resting and current_time - self.rest_start_time >= 2: # if rest time is up
                     current_floor = self.destination_floor
                     self.rest_over()
                     return current_floor
@@ -81,7 +81,9 @@ class Elevator:
         else: # elevator moving
             self.move()
 
-    def new_call(self, floor, time_to_floor): # function activated by the building, gives the elevator a destination floor, and the trip time from the elevators current last floor
+
+    # function activated by the building, gives the elevator a destination floor, and the time to arrive to that destination
+    def new_call(self, floor, time_to_floor): 
         if self.busy:
             self.queue.append(floor)
             time_to_available = time_to_floor + 2 # add trip_time and rest to self.time_to_available
@@ -115,6 +117,7 @@ class Elevator:
             self.rest_start_time = time.time()
 
 
+    # Draw the elevator on the screen
     def draw(self, screen):
         if self.direction == True:
             screen.blit(self.pic_down, (self.current_x_pixel, self.current_y_pixel))
@@ -123,6 +126,7 @@ class Elevator:
             screen.blit(self.pic_up, (self.current_x_pixel, self.current_y_pixel))
 
 
+    # Function for scrolling
     def scroll_up(self):
         self.current_y_pixel -= VERTICAL_SCROLL_SPEED
         self.start_trip_y_pixel -= VERTICAL_SCROLL_SPEED
@@ -137,5 +141,3 @@ class Elevator:
 
     def scroll_right(self):
         self.current_x_pixel += HORIZONTAL_SCROLL_SPEED
-
-        

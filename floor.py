@@ -11,10 +11,12 @@ class Floor:
         self.pic = pygame.transform.scale(self.pic, (FLOOR_WIDTH, FLOOR_HEIGHT))
     
 
+    # Draw the floor on the screen 
     def draw(self, screen):
         screen.blit(self.pic, (self.x_pixel, self.y_pixel))
 
     
+    # Functions for scrolling
     def scroll_up(self):
         self.y_pixel -= VERTICAL_SCROLL_SPEED
 

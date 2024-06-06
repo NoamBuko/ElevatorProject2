@@ -8,19 +8,20 @@ from gap import Gap
 
 
 class Building:
-    def __init__(self, number, floor_x): # not sure if list of elvs or num of elvs
-        # init building according to num of floors and elvs, assign the speed for the elvs, and the pixels for each element
+    # init building according to num of floors and elvs, assign the speed for the elvs, and the pixels for each element
+    def __init__(self, number, floor_x):
         pygame.init()
 
         self.vertical_scrolled = 0
         self.horizontal_scrolled = 0
 
-        self.floor_x = floor_x
+        self.floor_x = floor_x # the x pixels for the floors
 
-        self.number = number
+        self.number = number # Building number in the city
 
-        self.floor_num_font = pygame.font.SysFont(FLOOR_NUMBER_FONT, FLOOR_NUMBER_FONT_SIZE)
+        self.floor_num_font = pygame.font.SysFont(FLOOR_NUMBER_FONT, FLOOR_NUMBER_FONT_SIZE) # font for the floor number 
 
+        # Initiate the lists for all the objects in the building 
         self.list_of_floors = []
         self.list_of_elevators = []
         self.list_of_buttons = []
@@ -29,6 +30,7 @@ class Building:
 
         self.speed = self.calculate_speed()
 
+        # add all the objects to the building 
         self.build_floors()
         self.build_elevators()
         self.add_gaps()
@@ -40,6 +42,7 @@ class Building:
         return speed
     
 
+    # Build all the floors in the building 
     def build_floors(self): 
         x_pixel = self.floor_x # does not change for different floors
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT # does change for different floors
@@ -48,7 +51,7 @@ class Building:
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
         
 
-
+    # Build all the elevators in the building 
     def build_elevators(self):
         x_pixel = self.floor_x + FLOOR_WIDTH + PIXELS_BETWEEN_ELEVATOR # does change for different elevators
         y_pixel = SCREEN_HEIGHT - ELEVATOR_HEIGHT - GAP_HEIGHT # does not change for different elevators
@@ -57,6 +60,7 @@ class Building:
             x_pixel += (PIXELS_BETWEEN_ELEVATOR + ELEVATOR_WIDTH)
     
 
+    # Add all the gaps to the building 
     def add_gaps(self):
         x_pixel = self.floor_x
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT - GAP_HEIGHT
@@ -65,6 +69,7 @@ class Building:
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
     
 
+    # Add all the buttons to the building 
     def add_buttons(self):
         x_pixel = self.floor_x + (FLOOR_WIDTH - BUTTON_WIDTH) / 2 
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT + (FLOOR_HEIGHT - BUTTON_HEIGHT) / 2
@@ -73,6 +78,7 @@ class Building:
             y_pixel -= (GAP_HEIGHT + FLOOR_HEIGHT)
 
     
+    # Add all the floor numbers to the building 
     def add_floor_numbers(self, screen):
         for number in range(NUM_OF_FLOORS[self.number]):
             text_font = pygame.font.SysFont(FLOOR_NUMBER_FONT, FLOOR_NUMBER_FONT_SIZE)
@@ -83,6 +89,7 @@ class Building:
             screen.blit(text_surface, text_rect)
 
 
+    # Identify new calls from floor
     def check_for_new_calls(self, position):
         for button in self.list_of_buttons:
             result = button.check_if_clicked(position)
@@ -92,6 +99,7 @@ class Building:
         return None
             
 
+    # Once a new call is recieved, calculate the best elevator for the floor
     def call_elevator(self, floor):
         arrival_times = []
         
@@ -105,11 +113,13 @@ class Building:
         time_to_arrival = best_arrival[0]
         best_elevator = best_arrival[1]
 
+        # Add a timer on the floor relevant 
         self.list_of_timers.append(Timer(time_to_arrival, self.floor_x - TIMER_MARGIN + self.horizontal_scrolled, (SCREEN_HEIGHT - FLOOR_HEIGHT) - floor * (GAP_HEIGHT + FLOOR_HEIGHT) + self.vertical_scrolled))
         best_elevator.new_call(floor, time_to_arrival) 
 
-        
-    def update_all(self): # update all the objects -  elvs, timers, buttons
+
+    # update all the objects in the building   
+    def update_all(self): 
         for elevator in self.list_of_elevators:
             result = elevator.update() # result is either None, or a floor number if the button there should be changed back to black
             if result != None:
@@ -119,7 +129,7 @@ class Building:
             timer.update_timer()
 
 
-    def draw_all(self, screen):   # draw everything just updated 
+    def draw_all(self, screen):   # draw all objects in the building 
         for floor in self.list_of_floors:
             floor.draw(screen)
         
@@ -137,6 +147,8 @@ class Building:
 
         self.add_floor_numbers(screen)
 
+    
+    # Functions for scrolling 
     def scroll_up_all(self):
         self.vertical_scrolled -= VERTICAL_SCROLL_SPEED
 
