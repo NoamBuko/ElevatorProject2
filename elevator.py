@@ -131,4 +131,11 @@ class Elevator:
     def scroll_down(self):
         self.current_y_pixel += VERTICAL_SCROLL_SPEED
         self.start_trip_y_pixel += VERTICAL_SCROLL_SPEED
+
+    def scroll_left(self):
+        self.current_x_pixel -= HORIZONTAL_SCROLL_SPEED
+
+    def scroll_right(self):
+        self.current_x_pixel += HORIZONTAL_SCROLL_SPEED
+
         

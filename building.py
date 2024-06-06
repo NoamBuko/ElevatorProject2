@@ -8,11 +8,14 @@ from gap import Gap
 
 
 class Building:
-    def __init__(self, number): # not sure if list of elvs or num of elvs
+    def __init__(self, number, floor_x): # not sure if list of elvs or num of elvs
         # init building according to num of floors and elvs, assign the speed for the elvs, and the pixels for each element
         pygame.init()
 
-        self.scrolled = 0
+        self.vertical_scrolled = 0
+        self.horizontal_scrolled = 0
+
+        self.floor_x = floor_x
 
         self.number = number
 
@@ -38,7 +41,7 @@ class Building:
     
 
     def build_floors(self): 
-        x_pixel = FLOOR_MARGIN + self.number * BUILDING_WIDTH # does not change for different floors
+        x_pixel = self.floor_x # does not change for different floors
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT # does change for different floors
         for number in range(NUM_OF_FLOORS[self.number]):
             self.list_of_floors.append(Floor(number, x_pixel, y_pixel))
@@ -47,7 +50,7 @@ class Building:
 
 
     def build_elevators(self):
-        x_pixel = FLOOR_MARGIN + FLOOR_WIDTH + PIXELS_BETWEEN_ELEVATOR + self.number * BUILDING_WIDTH# does change for different elevators
+        x_pixel = self.floor_x + FLOOR_WIDTH + PIXELS_BETWEEN_ELEVATOR # does change for different elevators
         y_pixel = SCREEN_HEIGHT - ELEVATOR_HEIGHT - GAP_HEIGHT # does not change for different elevators
         for number in range(NUM_OF_ELEVATORS[self.number]):
             self.list_of_elevators.append(Elevator(number, x_pixel, y_pixel, self.speed))
@@ -55,7 +58,7 @@ class Building:
     
 
     def add_gaps(self):
-        x_pixel = FLOOR_MARGIN + self.number * BUILDING_WIDTH
+        x_pixel = self.floor_x
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT - GAP_HEIGHT
         for gap in range(NUM_OF_FLOORS[self.number] - 1):
             self.list_of_gaps.append(Gap(x_pixel, y_pixel))
@@ -63,7 +66,7 @@ class Building:
     
 
     def add_buttons(self):
-        x_pixel = FLOOR_MARGIN + (FLOOR_WIDTH - BUTTON_WIDTH) / 2 + self.number * BUILDING_WIDTH
+        x_pixel = self.floor_x + (FLOOR_WIDTH - BUTTON_WIDTH) / 2 
         y_pixel = SCREEN_HEIGHT - FLOOR_HEIGHT + (FLOOR_HEIGHT - BUTTON_HEIGHT) / 2
         for number in range(NUM_OF_FLOORS[self.number]):
             self.list_of_buttons.append(Button(number, x_pixel, y_pixel))
@@ -102,7 +105,7 @@ class Building:
         time_to_arrival = best_arrival[0]
         best_elevator = best_arrival[1]
 
-        self.list_of_timers.append(Timer(time_to_arrival, TIMER_MARGIN + self.number * BUILDING_WIDTH, (SCREEN_HEIGHT - FLOOR_HEIGHT) - floor * (GAP_HEIGHT + FLOOR_HEIGHT)))
+        self.list_of_timers.append(Timer(time_to_arrival, self.floor_x - TIMER_MARGIN + self.horizontal_scrolled, (SCREEN_HEIGHT - FLOOR_HEIGHT) - floor * (GAP_HEIGHT + FLOOR_HEIGHT) + self.vertical_scrolled))
         best_elevator.new_call(floor, time_to_arrival) 
 
         
@@ -135,7 +138,7 @@ class Building:
         self.add_floor_numbers(screen)
 
     def scroll_up_all(self):
-        self.scrolled -= VERTICAL_SCROLL_SPEED
+        self.vertical_scrolled -= VERTICAL_SCROLL_SPEED
 
         for gap in self.list_of_gaps:
             gap.scroll_up()
@@ -154,7 +157,7 @@ class Building:
 
 
     def scroll_down_all(self):
-        self.scrolled += VERTICAL_SCROLL_SPEED
+        self.vertical_scrolled += VERTICAL_SCROLL_SPEED
 
         for gap in self.list_of_gaps:
             gap.scroll_down()
@@ -170,4 +173,40 @@ class Building:
 
         for timer in self.list_of_timers:
             timer.scroll_down()
+
+    def scroll_left_all(self):
+        self.horizontal_scrolled -= HORIZONTAL_SCROLL_SPEED
+
+        for gap in self.list_of_gaps:
+            gap.scroll_left()
+        
+        for elevator in self.list_of_elevators:
+            elevator.scroll_left()
+
+        for floor in self.list_of_floors:
+            floor.scroll_left()
+        
+        for button in self.list_of_buttons:
+            button.scroll_left()
+
+        for timer in self.list_of_timers:
+            timer.scroll_left()
+
+    def scroll_right_all(self):
+        self.horizontal_scrolled += HORIZONTAL_SCROLL_SPEED
+
+        for gap in self.list_of_gaps:
+            gap.scroll_right()
+        
+        for elevator in self.list_of_elevators:
+            elevator.scroll_right()
+
+        for floor in self.list_of_floors:
+            floor.scroll_right()
+        
+        for button in self.list_of_buttons:
+            button.scroll_right()
+
+        for timer in self.list_of_timers:
+            timer.scroll_right()
                      

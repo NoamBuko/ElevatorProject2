@@ -18,3 +18,9 @@ class Gap:
 
     def scroll_down(self):
         self.y += VERTICAL_SCROLL_SPEED
+
+    def scroll_left(self):
+        self.x -= HORIZONTAL_SCROLL_SPEED
+
+    def scroll_right(self):
+        self.x += HORIZONTAL_SCROLL_SPEED

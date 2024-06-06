@@ -9,13 +9,15 @@ from building import Building
 class City:
     def __init__(self):
         self.list_of_buildings = []
+        self.start_building = FLOOR_MARGIN # where each building should start 
 
         self.create_buildings()
     
 
     def create_buildings(self):
         for number in range(NUM_OF_BUILDINGS):
-            self.list_of_buildings.append(Building(number))
+            self.list_of_buildings.append(Building(number, self.start_building))
+            self.start_building += (FLOOR_MARGIN + NUM_OF_ELEVATORS[number] * (ELEVATOR_WIDTH + PIXELS_BETWEEN_ELEVATOR) + FLOOR_WIDTH)
 
     
     def update_all(self):
@@ -40,3 +42,11 @@ class City:
     def scroll_up_all(self):
         for building in self.list_of_buildings:
             building.scroll_up_all()
+
+    def scroll_left_all(self):
+        for building in self.list_of_buildings:
+            building.scroll_left_all()
+
+    def scroll_right_all(self):
+        for building in self.list_of_buildings:
+            building.scroll_right_all()

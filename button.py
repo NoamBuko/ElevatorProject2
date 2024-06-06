@@ -35,3 +35,10 @@ class Button:
         self.y_pixel += VERTICAL_SCROLL_SPEED
         self.rect = pygame.Rect(self.x_pixel, self.y_pixel, BUTTON_WIDTH, BUTTON_HEIGHT)
 
+    def scroll_left(self):
+        self.x_pixel -= HORIZONTAL_SCROLL_SPEED
+        self.rect = pygame.Rect(self.x_pixel, self.y_pixel, BUTTON_WIDTH, BUTTON_HEIGHT)
+
+    def scroll_right(self):
+        self.x_pixel += HORIZONTAL_SCROLL_SPEED
+        self.rect = pygame.Rect(self.x_pixel, self.y_pixel, BUTTON_WIDTH, BUTTON_HEIGHT)

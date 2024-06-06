@@ -34,7 +34,14 @@ while run:
                     position = event.pos
         
                     city.check_for_new_calls(position)
-   
+    
+    keys = pygame.key.get_pressed()
+
+    # Update scroll position based on arrow key presses
+    if keys[pygame.K_LEFT]:
+        city.scroll_right_all()
+    if keys[pygame.K_RIGHT]:
+         city.scroll_left_all()
 
     city.update_all()
     city.draw_all(screen)

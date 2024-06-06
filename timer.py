@@ -34,4 +34,11 @@ class Timer:
 
     def scroll_down(self):
         self.y_pixel += VERTICAL_SCROLL_SPEED
+
+    def scroll_left(self):
+        self.x_pixel -= HORIZONTAL_SCROLL_SPEED
+
+    def scroll_right(self):
+        self.x_pixel += HORIZONTAL_SCROLL_SPEED
+                     
     
