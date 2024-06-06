@@ -14,4 +14,11 @@ class Floor:
     def draw(self, screen):
         screen.blit(self.pic, (self.x_pixel, self.y_pixel))
 
+    
+    def scroll_up(self):
+        self.y_pixel -= VERTICAL_SCROLL_SPEED
+
+    def scroll_down(self):
+        self.y_pixel += VERTICAL_SCROLL_SPEED
+
          

@@ -31,3 +31,12 @@ class City:
     def check_for_new_calls(self, position):
         for building in self.list_of_buildings:
             building.check_for_new_calls(position)
+
+    
+    def scroll_down_all(self):
+        for building in self.list_of_buildings:
+            building.scroll_down_all()
+
+    def scroll_up_all(self):
+        for building in self.list_of_buildings:
+            building.scroll_up_all()
