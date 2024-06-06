@@ -1,4 +1,3 @@
-# Limited to 3 buildings, each building is limited to 14 floors and 4 elevators 
 
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 830
@@ -8,7 +7,7 @@ NUM_OF_BUILDINGS = 4
 BUILDING_WIDTH = 400
 
 NUM_OF_FLOORS = [14, 11, 12, 17]
-FLOOR_PIC = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/pink_brick.png'
+FLOOR_PIC = 'ElevatorChallenge_3.0/brick_wall.jpg'
 FLOOR_WIDTH = 200
 FLOOR_HEIGHT = 50
 SECONDS_BETWEEN_FLOORS = 0.5
@@ -19,7 +18,7 @@ FLOOR_MARGIN = 100
 
 GAP_WIDTH = FLOOR_WIDTH
 GAP_HEIGHT = 7
-GAP_PIC = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/gap_pic.png'
+GAP_PIC = 'ElevatorChallenge_3.0/gap_pic.png'
 
 BUTTON_WIDTH = 50
 BUTTON_HEIGHT = 20
@@ -32,8 +31,8 @@ TIMER_FONT_COLOR = "black"
 TIMER_MARGIN = 80
 
 NUM_OF_ELEVATORS = [3, 2, 1, 4]
-ELEVATOR_PIC_UP = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/rocket.png'
-ELEVATOR_PIC_DOWN = '/Users/noambooko/Desktop/python/ElevatorChallenge - Python/rocket_down.png'
+ELEVATOR_PIC_UP = 'ElevatorChallenge_3.0/elv.png'
+ELEVATOR_PIC_DOWN = 'ElevatorChallenge_3.0/elv.png'
 ELEVATOR_WIDTH = 40
 ELEVATOR_HEIGHT = 40
 PIXELS_BETWEEN_ELEVATOR = 10
